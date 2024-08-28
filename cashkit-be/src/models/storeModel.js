@@ -15,8 +15,14 @@ const getStoreById = async (storeId) => {
 }
 
 // TODO: updateStore
-const updateStore = async (storeId, )
+const updateStore = async (storeId, storeName, address, ownerId, receiptFooter) => {
+    const [rows] = await db.query('UPDATE stores SET store_name = ?, address = ?, owner_id = ?, receipt_footer = ? WHERE id = ?', [storeName, address, ownerId, receiptFooter, storeId]);
+    return rows.affectedRows  
+}
 
 // TODO: deleteStore
+const deteleStore = async (storeId, ownerId) => {
+    const 
+}
 
 module.exports = { createStore, getStoreByOwner, getStoreById, updateStore, deleteStore };
