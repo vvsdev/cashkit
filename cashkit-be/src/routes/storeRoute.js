@@ -1,11 +1,13 @@
 const { Router } = require('express');
 const authMiddleware = require('../middlewares/authMiddleware');
-const { addStore, fetchStoreByOwner, fetchStoreById } = require('../controllers/storeController');
+const { addStore, fetchStoreByOwner, fetchStoreById, modifyStore, removeStore } = require('../controllers/storeController');
 
 const router = Router();
 
-router.post('/add', authMiddleware, addStore);
-router.get('/byowner', authMiddleware, fetchStoreByOwner);
-router.get('/bystoreid/:storeId', authMiddleware, fetchStoreById);
+router.post('/', authMiddleware, addStore);
+router.get('/', authMiddleware, fetchStoreByOwner);
+router.get('/:storeId', authMiddleware, fetchStoreById);
+router.put('/:storeId', authMiddleware, modifyStore);
+router.delete('/:storeId', authMiddleware, removeStore);
 
 module.exports = router;

@@ -20,8 +20,8 @@ const updateStore = async (storeId, storeName, address, ownerId, receiptFooter) 
     return rows.affectedRows;
 }
 
-const deleteStore = async (storeId) => {
-    const [rows] = await db.query('DELETE FROM stores WHERE id = ?', [storeId]);
+const deleteStore = async (storeId, ownerId) => {
+    const [rows] = await db.query('DELETE FROM stores WHERE id = ? AND owner_id = ?', [storeId, ownerId]);
     return rows.affectedRows;
 }
 
