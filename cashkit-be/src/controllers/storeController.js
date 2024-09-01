@@ -1,4 +1,5 @@
-const { createStore, getStoreByOwner, getStoreById, updateStore, deleteStore } = require('../models/storeModel');
+const { createStore, findStoreByOwner, findStoreById, updateStore, deleteStore } = require('../models/storeModel');
+const { createUserStore } = require('../models/userStoreModel');
 
 const addStore = async (req, res) => {
     const { storeName, address, receiptFooter } = req.body;
@@ -15,7 +16,7 @@ const addStore = async (req, res) => {
 const fetchStoreByOwner = async (req, res) => {
     const { id } = req.user;
 
-    const stores = await getStoreByOwner(id);
+    const stores = await findStoreByOwner(id);
     if (!stores) {
         return res.status(404).json({ message: 'Data not found' });
     }
@@ -27,7 +28,7 @@ const fetchStoreById = async (req, res) => {
     const { storeId } = req.params;
     const { id } = req.user;
 
-    const store = await getStoreById(storeId, id);
+    const store = await findStoreById(storeId, id);
     if (!store) {
         return res.status(404).json({ message: 'Data not found' });
     }
@@ -40,7 +41,7 @@ const modifyStore = async (req, res) => {
     const { storeName, address, receiptFooter } = req.body;
     const { id } = req.user;
 
-    const store = await getStoreById(storeId, id);
+    const store = await findStoreById(storeId, id);
     if (!store) {
         return res.status(404).json({ message: 'Data not found' });
     }
